@@ -46,7 +46,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/regen">
+                            <a class="nav-link" style="cursor:pointer;" data-toggle="modal"
+                                data-target="#modal-notification">
                                 <i class="fas fa-key text-orange"></i>
                                 <span class="nav-link-text">Password Reset</span>
                             </a>
@@ -71,6 +72,44 @@
                 </div>
             </div>
         </div>
+        
+        <!-- Modal Password Warning -->
+
+        <div class="modal fade" id="modal-notification" tabindex="-1" role="dialog" aria-labelledby="modal-notification"
+            aria-hidden="true">
+            <div class="modal-dialog modal-danger modal-dialog-centered modal-" role="document">
+                <div class="modal-content bg-gradient-danger">
+
+                    <div class="modal-header">
+                        <h6 class="modal-title" id="modal-title-notification">Your are about to Reset your Password!
+                        </h6>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+
+                        <div class="py-3 text-center">
+                            <i class="ni ni-bell-55 ni-3x"></i>
+                            <h4 class="heading mt-4">Are you sure?</h4>
+                            <p>WARNING: Pressing "Okay, Reset Password" will reset your panel password and you will need
+                                to login to the panel again. Only reset your password if you really need to reset it.
+                            </p>
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <a href="/regen"><button type="button" class="btn btn-white">Okay, Reset Password</button></a>
+                        <button type="button" class="btn btn-link text-white ml-auto" data-dismiss="modal">Go
+                            Back</button>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Modal Password Warning END-->
     </nav>
     <div class="main-content" id="panel">
         <nav class="navbar navbar-top navbar-expand navbar-dark bg-primary border-bottom">
@@ -82,7 +121,33 @@
                         <span class="badge badge-primary"><%= coins %></span>
                     </button>
                     <% } %>
-
+                    <% if (req.session.newaccount || req.session.password) { %>
+                        <% if (req.session.newaccount) { %>
+                        <div class="alert alert-default alert-dismissible fade show" role="alert">
+                            <span class="alert-icon"><i class="fas fa-plus-circle"></i></span>
+                            <span class="alert-text"><strong>Congratulations!</strong> A new account has been created for
+                                you on the Pterodactyl Panel</span>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <% } %>
+                        <% if (req.session.password) { %>
+                        <div class="alert alert-success">
+                            <span>Your <% if (!req.session.newaccount) { %>new <% } %>password is
+                                <code><%= req.session.password %></code>! Make sure to keep this password in a safe
+                                place</span>
+                        </div>
+                        <div class="alert alert-default alert-dismissible fade show" role="alert">
+                            <span class="alert-icon"><i class="ni ni-like-2"></i></span>
+                            <span class="alert-text"><strong><%= req.session.password %></strong> is the password to your
+                                pterodactyl account.</span>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <% } %>
+                        <% } %>
                     <% if (req.query.err) { %>
                     <div class="alert alert-default alert-dismissible fade show" role="alert">
                         <span class="alert-icon"><i class="fas fa-plus-circle"></i></span>
@@ -302,7 +367,7 @@
                             <form>
                                 <div class="form-group">
                                     <label for="serverName">Name</label>
-                                    <input type="text" class="form-control" id="name" placeholder=Example">
+                                    <input type="text" class="form-control form-control-alternative" placeholder="Example" id="name">
                                 </div>
                                 <div class="form-group">
                                     <label for="locations">Location</label>
@@ -321,11 +386,21 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="sernerName">Name</label>
-                                    <input type="text" class="form-control" id="name" placeholder=Example">
+                                    <label for="serverMemory">Memory</label>
+                                    <input type="text" class="form-control form-control-alternative" placeholder="128" id="ram">
                                 </div>
-                                <button onclick="submitForm()" type="button"
-                                    class="btn btn-outline-primary">Submit</button>
+                                <div class="form-group">
+                                    <label for="serverDisk">Disk</label>
+                                    <input type="text" class="form-control form-control-alternative" placeholder="512" id="disk">
+                                </div>
+                                <div class="form-group">
+                                    <label for="serverCPU">CPU</label>
+                                    <input type="text" class="form-control form-control-alternative" placeholder="100" id="cpu">
+                                </div>
+                                <a onclick="submitForm()">
+                                    <button type="button"
+                                        class="btn btn-outline-primary">Submit</button>
+                                </a>
                             </form>
                         </div>
                         <script>
