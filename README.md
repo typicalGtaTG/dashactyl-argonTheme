@@ -32,10 +32,10 @@ This is a simple theme for dashactyl. You may modify and use this theme but **yo
   This is my first theme and took a lot of time, If you find any bugs please consider reporting them to me and star this repo if you think I did a good job.
   
   ## Screenshots
-  ![Admin Page](https://raw.githubusercontent.com/typicalGtaTG/dashactyl-argonTheme/main/screenshots/admin1.png)
-  ![Server Creation Page](https://github.com/typicalGtaTG/dashactyl-argonTheme/raw/main/screenshots/create1.png)
+  ![Login Page](https://github.com/typicalGtaTG/dashactyl-argonTheme/raw/main/screenshots/login1.png)
   ![Dashboard Page](https://github.com/typicalGtaTG/dashactyl-argonTheme/raw/main/screenshots/dashboard1.png)
   ![Password Reset Alert](https://github.com/typicalGtaTG/dashactyl-argonTheme/raw/main/screenshots/password_reset1.png)
   ![Server List Page](https://github.com/typicalGtaTG/dashactyl-argonTheme/raw/main/screenshots/servers1.png)
+  ![Server Creation Page](https://github.com/typicalGtaTG/dashactyl-argonTheme/raw/main/screenshots/create1.png)
   ![Store Page](https://github.com/typicalGtaTG/dashactyl-argonTheme/raw/main/screenshots/store1.png)
-  
+  ![Admin Page](https://raw.githubusercontent.com/typicalGtaTG/dashactyl-argonTheme/main/screenshots/admin1.png)
