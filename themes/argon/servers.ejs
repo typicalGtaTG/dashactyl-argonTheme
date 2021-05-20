@@ -373,7 +373,7 @@
                                             </a>
                                         </td>
                                         <td>
-                                            <a href="/servers/delete?id=<%= pterodactyl.relationships.servers.data[i].attributes.id %>">
+                                            <a href="/delete?id=<%= pterodactyl.relationships.servers.data[i].attributes.id %>">
                                                 <button class="btn btn-icon btn-primary" type="button">
                                                     <span class="btn-inner--icon"><i class="fas fa-trash"></i></span>
                                                 </button>
@@ -381,7 +381,7 @@
                                         </td>
                                         <% if (settings.api.client.allow.renewsuspendsystem.enabled) { %>
                                         <td>
-                                            <a href="/servers/renew?id=<%= pterodactyl.relationships.servers.data[i].attributes.id %>">
+                                            <a href="/renew?id=<%= pterodactyl.relationships.servers.data[i].attributes.id %>">
                                                 <button class="btn btn-icon btn-primary" type="button">
                                                     <span class="btn-inner--icon"><i class="fas fa-sync-alt"></i></span>
                                                 </button>

@@ -72,7 +72,7 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- Modal Password Warning -->
 
         <div class="modal fade" id="modal-notification" tabindex="-1" role="dialog" aria-labelledby="modal-notification"
@@ -122,58 +122,94 @@
                     </button>
                     <% } %>
                     <% if (req.session.newaccount || req.session.password) { %>
-                        <% if (req.session.newaccount) { %>
-                        <div class="alert alert-default alert-dismissible fade show" role="alert">
-                            <span class="alert-icon"><i class="fas fa-plus-circle"></i></span>
-                            <span class="alert-text"><strong>Congratulations!</strong> A new account has been created for
-                                you on the Pterodactyl Panel</span>
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <% } %>
-                        <% if (req.session.password) { %>
-                        <div class="alert alert-success">
-                            <span>Your <% if (!req.session.newaccount) { %>new <% } %>password is
-                                <code><%= req.session.password %></code>! Make sure to keep this password in a safe
-                                place</span>
-                        </div>
-                        <div class="alert alert-default alert-dismissible fade show" role="alert">
-                            <span class="alert-icon"><i class="ni ni-like-2"></i></span>
-                            <span class="alert-text"><strong><%= req.session.password %></strong> is the password to your
-                                pterodactyl account.</span>
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <% } %>
-                        <% } %>
+                    <% if (req.session.newaccount) { %>
+                    <div class="alert alert-default alert-dismissible fade show" role="alert">
+                        <span class="alert-icon"><i class="fas fa-plus-circle"></i></span>
+                        <span class="alert-text"><strong>Congratulations!</strong> A new account has been created for
+                            you on the Pterodactyl Panel</span>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <% } %>
+                    <% if (req.session.password) { %>
+                    <div class="alert alert-success">
+                        <span>Your <% if (!req.session.newaccount) { %>new <% } %>password is
+                            <code><%= req.session.password %></code>! Make sure to keep this password in a safe
+                            place</span>
+                    </div>
+                    <div class="alert alert-default alert-dismissible fade show" role="alert">
+                        <span class="alert-icon"><i class="ni ni-like-2"></i></span>
+                        <span class="alert-text"><strong><%= req.session.password %></strong> is the password to your
+                            pterodactyl account.</span>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <% } %>
+                    <% } %>
+
+                    <% if (settings.api.client.allow.server.create == true) { %>
                     <% if (req.query.err) { %>
                     <div class="alert alert-default alert-dismissible fade show" role="alert">
                         <span class="alert-icon"><i class="fas fa-plus-circle"></i></span>
                         <span class="alert-text">
-
                             <% if (req.query.err == "MISSINGVARIABLE") { %>
-                            You need to fill all the server information.
+                            You have not filled out all of the server information.
                             <% } else if (req.query.err == "NOTANUMBER") { %>
                             RAM, disk and CPU must be a number.
                             <% } else if (req.query.err == "ERRORONCREATE") { %>
                             There has been an error while attempting to create your server. Please alert an
                             administrator to fix this problem.
                             <% } else if (req.query.err == "BIGSERVERNAME") { %>
-                            Your server name must be less than <strong>191</strong> characters.
+                            Your server name must be less than <b>191</b> characters.
                             <% } else if (req.query.err == "TOOMUCHSERVERS") { %>
                             The server could not be created because you have requested to create a server that exceeds
                             your plan.
                             <% } else if (req.query.err == "PREMIUMLOCATION") { %>
                             You cannot make a server on the selected location on your current package.
+                            <% } else { %>
+                            <% if (req.query.num) { %>
+                            <% if (!isNaN(parseFloat(req.query.num))) { %>
+                            <% if (req.query.err == "TOOLITTLERAM" || req.query.err == "TOOLITTLEDISK" || req.query.err == "TOOLITTLECPU") { %>
+                            You must make a server with at least <b><%= req.query.num %></b>
+                            <% if (req.query.err.slice(-3) == "RAM") { %>
+                            MB RAM
+                            <% } else if (req.query.err.slice(-4) == "DISK") { %>
+                            MB disk
+                            <% } else { // CPU %>
+                            % CPU
                             <% } %>
-
+                            if you want to create a server with the server type you have selected.
+                            <% } else if (req.query.err == "TOOMUCHRAM" || req.query.err == "TOOMUCHDISK" || req.query.err == "TOOMUCHCPU") { %>
+                            With the selected server type, you can have a maximum of <b><%= req.query.num %></b>
+                            <% if (req.query.err.slice(-3) == "RAM") { %>
+                            MB RAM
+                            <% } else if (req.query.err.slice(-4) == "DISK") { %>
+                            MB disk
+                            <% } else { // CPU %>
+                            % CPU
+                            <% } %>
+                            on the server.
+                            <% } else if (req.query.err == "EXCEEDRAM" || req.query.err == "EXCEEDDISK" || req.query.err == "EXCEEDCPU") { %>
+                            The server could not be created because you have requested to create a server that exceeds
+                            your plan.
+                            <% } else { %>
+                            I won't mind to add a little easter egg here. :)
+                            <% } %>
+                            <% } else { %>
+                            I won't mind to add a little easter egg here. :)
+                            <% } %>
+                            <% } else { %>
+                            I won't mind to add a little easter egg here. :)
+                            <% } %>
+                            <% } %>
                         </span>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
+                    <% } %>
                     <% } %>
                     <!-- Navbar links -->
                     <ul class="navbar-nav align-items-center  ml-md-auto ">
@@ -367,7 +403,8 @@
                             <form>
                                 <div class="form-group">
                                     <label for="serverName">Name</label>
-                                    <input type="text" class="form-control form-control-alternative" placeholder="Example" id="name">
+                                    <input type="text" class="form-control form-control-alternative"
+                                        placeholder="Example" id="name">
                                 </div>
                                 <div class="form-group">
                                     <label for="locations">Location</label>
@@ -387,19 +424,21 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="serverMemory">Memory</label>
-                                    <input type="text" class="form-control form-control-alternative" placeholder="128" id="ram">
+                                    <input type="text" class="form-control form-control-alternative" placeholder="128"
+                                        id="ram">
                                 </div>
                                 <div class="form-group">
                                     <label for="serverDisk">Disk</label>
-                                    <input type="text" class="form-control form-control-alternative" placeholder="512" id="disk">
+                                    <input type="text" class="form-control form-control-alternative" placeholder="512"
+                                        id="disk">
                                 </div>
                                 <div class="form-group">
                                     <label for="serverCPU">CPU</label>
-                                    <input type="text" class="form-control form-control-alternative" placeholder="100" id="cpu">
+                                    <input type="text" class="form-control form-control-alternative" placeholder="100"
+                                        id="cpu">
                                 </div>
                                 <a onclick="submitForm()">
-                                    <button type="button"
-                                        class="btn btn-outline-primary">Submit</button>
+                                    <button type="button" class="btn btn-outline-primary">Submit</button>
                                 </a>
                             </form>
                         </div>
