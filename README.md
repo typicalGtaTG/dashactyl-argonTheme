@@ -1,6 +1,8 @@
 # Argon Theme for [Dashactyl](https://github.com/realtwo2/dashactyl)
 This is a simple theme for dashactyl. You may modify and use this theme but **you are not allowed to change the footer credits**. Installation steps below.
 
+#### WARING: THIS THEME IS NO LONGER MAINTAINED AND DOES NOT WORK ON NEWER DASHACTYL VERSIONS. IF YOU STILL WANT TO USE THIS THEME, PLEASE USE VERSION 0.3.6.
+
 ## Installation
 1. Download this github repo
 2. Upload everything to the dashactyl folder
